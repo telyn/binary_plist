@@ -1,34 +1,28 @@
-# BinaryPlistParser
+# binary_plist
 
-A parser for BinaryPList files.
+A parser (and maybe someday dumper) for Apple's bplist data format
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'binary_plist_parser'
+gem 'binary_plist', git: "https://github.com/telyn/binary_plist.git"
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install binary_plist_parser
-
 ## Usage
 
+
 ```ruby
-require "binary_plist/parser"
+require "binary_plist/parser/bplist00"
 
-obj = { "hello" => "world", "u_ok?" => true, "nums" => [1,2,3] }
+BinaryPList::Parser::BPList00.new(IO.read("spec/support/test-data/0")).parse
 
-bpl = BinaryPList.dump(obj)
-puts BinaryPList.load(bpl)
-
-# { "hello" => "world", "u_ok?" => true, "nums" => [1,2,3] }
+# => ["Cool Idea\n7", "abandoned\n1"]  
 ```
 
 ## Development

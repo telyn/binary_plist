@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require "binary_plist/trailer"
+require "binary_plist/parser/offset_table"
+
 require "binary_plist/parser/object_readers/base"
 require "binary_plist/parser/object_readers/array"
 require "binary_plist/parser/object_readers/ascii_string"
 require "binary_plist/parser/object_readers/int"
 require "binary_plist/parser/object_readers/null"
-require "binary_plist/parser/offset_table"
+require "binary_plist/parser/object_readers/utf16_string"
 
 module BinaryPList
   module Parser
