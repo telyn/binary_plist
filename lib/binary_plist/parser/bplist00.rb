@@ -21,17 +21,16 @@ module BinaryPList
         raise NotBPList00 unless io.read(MAGIC.length).eql? MAGIC
 
         @io = io
-        super(self.class, io, offset_table, trailer)
+        super(self.class, io, nil, nil)
       end
 
       def parse
-        top_object
+        object(trailer.top_object)
       end
 
       private
 
       def top_object
-        object(trailer.top_object)
       end
 
       def offset_table
