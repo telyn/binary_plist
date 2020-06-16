@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "support/object_reader"
+require "binary_plist/trailer"
 require "binary_plist/parser/object_readers/int"
 
 RSpec.describe BinaryPList::Parser::ObjectReaders::Int do
@@ -11,8 +12,10 @@ RSpec.describe BinaryPList::Parser::ObjectReaders::Int do
   end
 
   describe "#read" do
-    subject { described_class.new(nil, io, nil, nil).read(marker) }
-    let(:io) { StringIO.new(str) }
+    subject { described_class.new(nil, io, nil, trailer).read(marker) }
+    let(:io) { StringIO.new("bplist00" + str) }
+    before { io.seek(8) }
+    let(:trailer) { BinaryPList::Trailer.new(0, 1, 1, 1, 0, str.length + 8) }
     let(:str) { "" }
 
     include_examples "raises UnsupportedMarkerError when marker outside",

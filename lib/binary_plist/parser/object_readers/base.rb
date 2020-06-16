@@ -48,7 +48,6 @@ module BinaryPList
 
         def reader_for(marker)
           @main_class.readers.find do |klass|
-            puts "#{klass}.reads 0x#{marker.to_s(16)}? #{klass.reads?(marker)}"
             klass.reads? marker
           end&.new(@main_class, io, offset_table, trailer)
         end
@@ -59,11 +58,24 @@ module BinaryPList
 
         def read_int(size)
           size.times
-              .map { io.getbyte }
+              .map { read_byte }
               .reduce(0) do |acc, byte|
             (acc << 8) | byte
           end
         end
+
+        def read_byte
+          trailer.check_object_offset!(io.tell)
+          io.getbyte
+        end
+
+        def read_bytes(bytes)
+          return "" if bytes.zero?
+
+          trailer.check_object_offset!(io.tell + bytes - 1)
+          io.read(bytes)
+        end
+
 
         attr_reader :offset_table, :trailer, :io
       end

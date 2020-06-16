@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require "binary_plist/parser/object_readers/base"
-require "binary_plist/parser/object_readers/null"
-require "binary_plist/parser/object_readers/int"
 require "binary_plist/parser/object_readers/array"
+require "binary_plist/parser/object_readers/ascii_string"
+require "binary_plist/parser/object_readers/int"
+require "binary_plist/parser/object_readers/null"
 require "binary_plist/parser/offset_table"
 
 module BinaryPList
@@ -12,9 +13,11 @@ module BinaryPList
       class << self
         def readers
           @readers ||= [
-            ObjectReaders::Null,
-            ObjectReaders::Int,
+            ObjectReaders::ASCIIString,
             ObjectReaders::Array,
+            ObjectReaders::Int,
+            ObjectReaders::Null,
+            ObjectReaders::UTF16String,
           ]
         end
       end

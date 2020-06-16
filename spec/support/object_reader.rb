@@ -1,5 +1,5 @@
 RSpec.shared_examples_for "returns true when marker inside" do |range|
-  UnsupportedMarkerError = BinaryPList::Parser::ObjectReaders::UnsupportedMarkerError
+
   (0x00...range.begin).each do |marker_value|
     context "when marker is 0x#{marker_value.to_s(16)}" do
       let(:marker) { marker_value }
@@ -26,13 +26,13 @@ RSpec.shared_examples_for "returns true when marker inside" do |range|
 end
 
 RSpec.shared_examples_for "raises UnsupportedMarkerError when marker outside" do |range|
-  UnsupportedMarkerError = BinaryPList::Parser::ObjectReaders::UnsupportedMarkerError
+
   (0x00...range.begin).each do |marker_value|
     context "when marker is 0x#{marker_value.to_s(16)}" do
       let(:marker) { marker_value }
 
       it "raises UnsupportedMarkerError" do
-        expect { subject }.to raise_error(UnsupportedMarkerError)
+        expect { subject }.to raise_error(BinaryPList::Parser::ObjectReaders::UnsupportedMarkerError)
       end
     end
   end
@@ -42,7 +42,7 @@ RSpec.shared_examples_for "raises UnsupportedMarkerError when marker outside" do
       let(:marker) { marker_value }
 
       it "raises UnsupportedMarkerError" do
-        expect { subject }.to raise_error(UnsupportedMarkerError)
+        expect { subject }.to raise_error(BinaryPList::Parser::ObjectReaders::UnsupportedMarkerError)
       end
     end
   end
