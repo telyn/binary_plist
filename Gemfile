@@ -4,3 +4,5 @@ source "https://rubygems.org"
 gemspec
 
 gem "guard-rspec", "~> 4.7"
+
+gem "fuubar", "~> 2.5"
