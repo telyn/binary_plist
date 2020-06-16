@@ -1,7 +1,6 @@
 module BinaryPList
   module Parser
     module ObjectReaders
-      class ObjectOutOfRangeError < StandardError; end
       class UnsupportedMarkerError < StandardError; end
 
       # In order for a subclass to be used by Base#read_object, it must do three
@@ -29,16 +28,15 @@ module BinaryPList
 
         private
 
-        def object(num)
-          puts "object(#{num})"
-          if num > trailer.num_objects
-            raise ObjectOutOfRangeError, num: num, max: trailer.num_objects
-          end
+        def object(ref)
+          trailer.check_object_reference!(ref)
 
-          read_object(offset_table.object_offset(num))
+          read_object(offset_table.object_offset(ref))
         end
 
         def read_object(offset)
+          trailer.check_object_offset!(offset)
+
           io.seek(offset)
           marker = io.getbyte
 
@@ -49,9 +47,22 @@ module BinaryPList
         end
 
         def reader_for(marker)
-          @main_class.readers.first do |klass|
+          @main_class.readers.find do |klass|
+            puts "#{klass}.reads 0x#{marker.to_s(16)}? #{klass.reads?(marker)}"
             klass.reads? marker
           end&.new(@main_class, io, offset_table, trailer)
+        end
+
+        def read_objref
+          read_int(trailer.object_ref_size)
+        end
+
+        def read_int(size)
+          size.times
+              .map { io.getbyte }
+              .reduce(0) do |acc, byte|
+            (acc << 8) | byte
+          end
         end
 
         attr_reader :offset_table, :trailer, :io

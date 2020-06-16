@@ -18,11 +18,7 @@ module BinaryPList
           bytes_count = (1 << marker_length)
           # raise OffsetOutOfRangeError if outside_object_table?(io.tell + bytes_count)
 
-          bytes = bytes_count.times.map { io.getbyte }
-
-          bytes.reduce(0) do |acc, byte|
-            (acc << 8) | byte
-          end
+          read_int(bytes_count)
         end
       end
     end

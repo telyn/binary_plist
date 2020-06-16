@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require "binary_plist/parser/object_readers/base"
 require "binary_plist/parser/object_readers/null"
+require "binary_plist/parser/object_readers/int"
+require "binary_plist/parser/object_readers/array"
 require "binary_plist/parser/offset_table"
 
 module BinaryPList
@@ -9,6 +13,8 @@ module BinaryPList
         def readers
           @readers ||= [
             ObjectReaders::Null,
+            ObjectReaders::Int,
+            ObjectReaders::Array,
           ]
         end
       end
@@ -29,9 +35,6 @@ module BinaryPList
       end
 
       private
-
-      def top_object
-      end
 
       def offset_table
         @offset_table ||= OffsetTable.new(@io,
