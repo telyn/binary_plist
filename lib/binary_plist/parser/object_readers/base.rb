@@ -30,6 +30,7 @@ module BinaryPList
         private
 
         def object(num)
+          puts "object(#{num})"
           if num > trailer.num_objects
             raise ObjectOutOfRangeError, num: num, max: trailer.num_objects
           end
