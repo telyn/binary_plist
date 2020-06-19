@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binary_plist-parser (0.1.0)
+    binary_plist-parser (0.1.1)
 
 GEM
   remote: https://rubygems.org/
