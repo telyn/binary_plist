@@ -7,7 +7,7 @@ A parser (and maybe someday dumper) for Apple's bplist data format
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'binary_plist', git: "https://github.com/telyn/binary_plist.git"
+gem 'binary_plist-parser'
 ```
 
 And then execute:
@@ -18,9 +18,21 @@ And then execute:
 
 
 ```ruby
-require "binary_plist/parser/bplist00"
+require "binary_plist/parser"
 
 BinaryPList::Parser::BPList00.new(IO.read("spec/support/test-data/0")).parse
+
+# => ["Cool Idea\n7", "abandoned\n1"]  
+```
+
+You can also pass in an IO object instead of a string:
+
+```
+require "binary_plist/parser"
+
+File.open("spec/support/test-data/0", "r") do |fh|
+  BinaryPList::Parser::BPList00.new(fh).parse
+end
 
 # => ["Cool Idea\n7", "abandoned\n1"]  
 ```
@@ -30,11 +42,9 @@ BinaryPList::Parser::BPList00.new(IO.read("spec/support/test-data/0")).parse
 After checking out the repo, run `bundle` to install dependencies. Then, run
 `rspec` to run the tests.
 
-To install this gem onto your local machine, ran `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/binary_plist_parser.
+Bug reports and pull requests are welcome on GitHub at https://github.com/telyn/binary_plist.
 
 ## License
 
