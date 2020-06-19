@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "binary_plist/parser/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "binary_plist_parser"
+  spec.name          = "binary_plist-parser"
   spec.version       = BinaryPlistParser::VERSION
   spec.authors       = ["Telyn Z."]
   spec.email         = ["175827+telyn@users.noreply.github.com"]
@@ -23,10 +23,8 @@ Gem::Specification.new do |spec|
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added
   # into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0")
-                     .reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
+  spec.files         = `git ls-files -z`.split("\x0")
+                       .reject { |f| f.match(%r{^(test|spec|features)/}) }
 
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
