@@ -1,7 +1,15 @@
----
 sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 2.6.3
+- 2.6.3
 before_install: gem install bundler -v 2.0.2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: h7iodoUUGjFc94eGydyJcAnkACbjxNJuXXSjMPmw2OwM6x/l4+QqzEBZ52QwqYU0ly0gnSPZeNjkSzvZW6yu2ane53/gZmigrxmAiCo0ClCalpGxH0FDHh2p/8xLvLSzemHdy23yGWI31G/oUIZ5yebUAci2lFps6859Jbyyl9QiqR0ew/e26M5JQl4lG2MeTNCwnYujWBWer8+IPMNV1Jb+BZB3y2fhvCBxtQW1wVawJ1BKwF5mquqrB4stITnhLZl8m3XKQXDFIWbtf/uFKcAnM6cHq7PVUQrTWeeNAYvC359KWxkKe8nILWu14rFchsgRK6XHGmzV+dkTDzDaWTHSqsaqTSfT9reB1EjB5IgKn6Iix+NZfolariNtV70m/ZZf0Gl/Igt9F2LdkPPd5zFvkcGaNM2skp8d95yewCLY2iGrsigXFl7SGxKWvZQn+1kiN1f5wP1y6osB1iTxwXm8WpQHzD4I4rhMOdi3uAgkAJLJelYxH125IF59+iZZI1qsud30qVCLdkYm41iyL+FlSEocJ0v1/ooL5GTrusBoYhGvASMs6R9HDha50iqvfKKQqpBR9jgHijDmmZqSTyVX7y+VyK8oK91OWCxsfpxBr64iJVqNOOiXSpAiR4igpCWP3iQFHV3SNUbMw/fMI5KwYkiL8jDLLNKkTjp80Sc=
+  gem: binary_plist-parser
+  on:
+    tags: true
+    repo: telyn/binary_plist
+  skip_cleanup: 'true'
