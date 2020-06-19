@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binary_plist_parser (0.1.0)
+    binary_plist-parser (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -64,7 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  binary_plist_parser!
+  binary_plist-parser!
   bundler (~> 2.0)
   fuubar (~> 2.5)
   guard-rspec (~> 4.7)
