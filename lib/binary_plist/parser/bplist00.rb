@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "stringio"
+
 require "binary_plist/trailer"
 require "binary_plist/parser/offset_table"
 
@@ -9,6 +11,8 @@ require "binary_plist/parser/object_readers/ascii_string"
 require "binary_plist/parser/object_readers/int"
 require "binary_plist/parser/object_readers/null"
 require "binary_plist/parser/object_readers/utf16_string"
+require "binary_plist/parser/object_readers/date"
+require "binary_plist/parser/object_readers/real"
 
 module BinaryPList
   module Parser
@@ -21,6 +25,8 @@ module BinaryPList
             ObjectReaders::Int,
             ObjectReaders::Null,
             ObjectReaders::UTF16String,
+            ObjectReaders::Date,
+            ObjectReaders::Real,
           ]
         end
       end

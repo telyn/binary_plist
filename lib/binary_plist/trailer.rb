@@ -46,7 +46,7 @@ module BinaryPList
     def check_object_reference!(ref)
       return unless num_objects < ref
 
-      raise ObjectOutOfRangeError, num: num, max: trailer.num_objects
+      raise ObjectOutOfRangeError, num: ref, max: trailer.num_objects
     end
 
     def object_table_range

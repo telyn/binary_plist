@@ -76,6 +76,44 @@ module BinaryPList
           io.read(bytes)
         end
 
+        # Read a date from the stream.
+        #
+        # @return [Time] The date read from the stream
+        def read_date
+          epoch_offset = read_double
+          # Cocoa epoch starts at 2001-01-01 00:00:00 +0000
+          cocoa_epoch = Time.new(2001, 1, 1, 0, 0, 0, "+00:00")
+          cocoa_epoch + epoch_offset
+        end
+
+        # Read a big-endian float from the stream.
+        #
+        # @return [Float] The float read from the stream
+        def read_float
+          io.read(4).unpack('g')[0]
+        end
+
+        # Read a big-endian double from the stream.
+        #
+        # @return [Float] The double read from the stream
+        def read_double
+          io.read(8).unpack('G')[0]
+        end
+
+        # Read a big-endian float from the stream.
+        #
+        # @param [Integer] size Bytesize of the number (4 or 8)
+        # @return [Float] The float read from the stream
+        def read_real(size)
+          case size
+          when 4
+            read_float
+          when 8
+            read_double
+          else
+            raise ArgumentError, "byte size must be 4 or 8 bytes (got: #{size})"
+          end
+        end
 
         attr_reader :offset_table, :trailer, :io
       end
